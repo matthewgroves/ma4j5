@@ -1,0 +1,414 @@
+\documentclass[11pt]{book}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\begin{document}
+
+\begin{titlepage}
+
+\title{MA4J5 \\ Structures Of Complex Systems}
+\author{Dr M. Kirkilionis}
+\maketitle
+
+\end{titlepage}
+\tableofcontents
+\newpage
+\section{Overview}
+
+We study \underline{Mathematical Structures}\\
+(e.g: \begin{itemize}
+\item flow $\rightarrow$ Network \\
+\item Climate $\rightarrow$ Navier-Stokes equations)
+\end{itemize}
+and \underline{modelling techniques} that describe "\underline{Complex Systems}".\\
+
+"Complex Systems" typically have many different components, very often \underline{heterogeneous}, and such that the \underline{macroscopic} behaviour of the system can not be derived from its components.\\
+
+We give no formal definition of "Complex Systems", but here are some examples:
+\begin{itemize}
+\item Molecular self-assembly
+\item Regulatory networks (in biology, medicine)
+\item The brain
+\item Financial systems
+\item Food webs in ecology $\rightarrow$ stable?? (Biodiversity)
+\item Political system
+\item Climate 
+\end{itemize}
+In some cases, a system can be \underline{engineered}, in others not $\rightarrow$ \underline{game-theoretical} approach.
+All these systems are of interest because their understanding would help to solve some of the world's major problems:
+\begin{itemize}
+\item Human diseases
+\item Financial crises
+\item Loss of biodiverstiy
+\item Climate change
+\end{itemize}
+We'd like to understand and (eventually) control complex systems.\\
+
+Complex systems are usually \underline{non-linear systems}, which cannot be easily dissected into \underline{sub-modules}. In non-linear systems, we have \underline{feedback loops} (e.g cloud formation, ice formation).
+
+Complex systems are usually \underline{multi-scale}, meaning that there are many different levels of description (e.g human body: molecular level $\rightarrow$ cellular level $\rightarrow$ tissues $\rightarrow$ organs $\rightarrow$ organs $\rightarrow$ ...)\\
+
+In this course, we distinguish between \underline{structure} (usually constant in a model) and \underline{dynamics} of complex systems.
+
+
+\chapter{Structures}
+
+Two types of structures:
+\begin{itemize}
+\item \underline{Discrete objects}: (countable :1,2,...,n, then often we take the limit $n \rightarrow \infty$ to study large objects)
+\item \underline{Continuous objects}
+\end{itemize}
+\section{Graphs and networks}
+\underline{Undirected graphs}: $G = (V,E)$\\
+
+Let $V = \{v_{1},v_{2},....,v_{n}\}$ $E = \{e_{1},e_{2},....,e_{m}\}$. The edges can also be written as 2-tuples.\\
+
+\underline{Adjacency Matrix}:\\
+
+Graphs can be represented algebraically. We define $$a^{ij} = \begin{cases} 1 &\mbox{if there is an edge between i and j} \\ 0 &\mbox{otherwise} \end{cases}$$
+In an undirected graph, the adjacency matrix is always symmetric.\\
+
+\underline{Weighted Graphs}:\\
+We want to store more information in a graph (e.g road networks $\rightarrow$ road lengths).\\
+Define two mappings: $$f_{E}:V\rightarrow S_{V}$$ $$f_{E}:E\rightarrow S_{E}$$
+i.e, assign to each road its length or how many lanes it has or whatever.\\
+Normally $S_{E} = \mathbb{R}$, but $S_{E}$ and $S_{V}$ change depending on how much information we want to store. e.g, we could have $S_{E} = \mathbb{R}\times\mathbb{N}\times\mathbb{N}\times\mathbb{N}...$ etc.\\
+
+\underline{Directed Networks} \\
+Here we use the notation: $\stackrel{\rightarrow}{G} = (V,\stackrel{\rightarrow}{E})$. Now edges are \underline{ordered} pairs. This means that in general the adjacency matrix A will no longer be symmetric.\\
+Examples:
+\begin{enumerate}
+\item neural networks
+\item friendships
+\item food webs
+\item chemical interactions
+\end{enumerate}
+
+\underline{Bipartite graphs and hypernetworks}\\
+Building categories is a key point in the application of network theory. Often relationships are not binary, such as family relationships. We can use \underline{hypergraphs} to describe them.
+
+\vspace{5 cm}
+
+We always assume to be able to identify the single components of a system. However, this is not always the case (e.g molecules in a gas).\\
+
+The underlying idea in hypergraphs is the membership in categories. A key point is that we can rethink of hypergraphs as bipartite graphs and vice versa:\\
+
+\vspace{5cm}
+
+These two graphs store the same amount of information, but in the second case, we can identify a hierarchy in the set of vertices, the vertex set is made up of two subsets. This kind of graph is much easier to manipulate and apply to many real-world problems (e.g social sciences).
+
+\subsection{Hierarchical hypergraphs and multi-partite graphs}
+
+Let $H=(V,L)$ be a hypergraph, with $V = \{v_{1},v_{2},....,v_{n}\}$ the set of vertices and  $L = \{h_{1},h_{2},....,h_{m}\}$ the set of hyperlinks.\\
+
+
+Each $h_{i}$ is an unordered k-truple of $k \leq n$ elements of V (generalisation of a graph G, where we only have 2-tuples).\\
+
+
+We define the operation of \underline{"identification"} on the set(s) of hyperlinks L, which converts simultaneously hyperlinks into vertices and creates edges between vertices of the different classes. $$I: H_{1}=(V_{1},H_{1}) \mapsto B_{1}=(V_{1},V_{2},E_{1}) $$
+In case the hypergraph $H_{1}$ is unordered, we can identify any k-tuple $h_{i}$ with a set of vertices $\{v_{i_{1}},v_{i_{2}},....,v_{i_{k}}\}$ with k being the length of the tuple $h_{i}$. We require for I to be well-defined that:
+\begin{enumerate}
+\item $e_{i} = (v_{i_{1}}^{1},v_{i_{2}}^{2})$ has $v_{i_{1}}^{1} \in V_{1}$, $v_{i_{2}}^{2} \in V_{2}$
+\item $e_{i} \in E_{1} \Leftrightarrow v_{i_{1}}^{1}\in v_{i_{2}}^{2}$
+\end{enumerate}
+
+\vspace{5cm}
+
+We might need a hyperlink structure on the set $V_{2}$ (e.g people $\rightarrow$ families $\rightarrow$ towns). We define an \underline{expansion} operator: $$E:V_{2} \mapsto H_{2} = (V_{2},L_{2})$$
+which assembles elements of $V_{2}$ into groups. i.e, it creates the new hyperlink set $L_{2}$ (depending on \underline{modelling questions}).\\
+
+Now we can create 3-level hierarchical graphs by applying the operator I to the hypergraph $H_{2}$: $$I: H_{2} = (V_{2},L_{2}) \mapsto B_{2} = (V_{2},V_{3},E_{2})$$
+The expansion operator E can be applied to $B_{2}$... etc\\
+
+We end up with n-level hierarchical hypergraphs that are equivalent to n-partite graphs.\\
+\underline{Example}:\\
+
+Let's start with a set of vertices:
+
+\vspace{5cm}
+
+Apply operator E to $V_{1}$ to create hyperlinks:
+
+\vspace{5cm}
+
+Apply operator I to convert the hypergraph into a two level, bi-partite graph:
+
+\vspace{5cm}
+
+Apply operator E to create hyperlinks among vertices $V_{2}$ and again I to create a 3-level multi-partite hierarchical graph:
+
+\vspace{5cm}
+
+\subsection{Degree}
+(a) Undirected Graphs G=(V,E)\\
+
+\underline{Definition A1.2}: An edge $e_{j} \in E$ is called \underline{incident} to $v_{i}\in E$ if $e_{j}=(v_{i},v_{i}')$. We call $v_{i}'$ a neighbour of $v_{i}$.\\
+
+\underline{Definition A1.3}: Let $\mathcal{N}_{E} \subseteq E$ be the set of all edges incident to $v_{i}$. $\mathcal{N}_{E}$ is called the \underline{neighbourhood} of $v_{i}$.\\
+
+\underline{Definition A1.4}: Let $d(v_{i})$ be the number of edges incident to $v_{i}$. $d(v_{i})$ is called the \underline{degree} of the vertex $v_{i}$. (Clearly also $d(v_{i}) = |\mathcal{N}_{E}(v_{i})|$).\\
+\\(b) Directed Graphs $\stackrel{\rightarrow}{G} = (V,\stackrel{\rightarrow}{E})$\\
+
+\underline{Definition A1.5}: Let $d^{+}$ be the number of arrows (directed edges) pointing to the vertex $v_{i}$. $d^{+}$ is called the \underline{in-degree} of $v_{i}$. Similarly, $d^{-}$ is called the \underline{out-degree} of $v_{i}$.\\
+
+A graph is called \underline{connected} if there exists a path between any two vertices.\\
+
+\subsection{Large graphs or Networks}
+
+There are two fundamentally different network "architectures":
+\begin{itemize}
+\item \underline{exponential} network architecture
+\item \underline{scale-free} network architecture
+\end{itemize}
+
+Let $k:=d(v), G=(V,E), v \in V$ and let p(k) be the degree frequency (distribution) of the graph G. The two architectures are defined by the following properties of p(k):
+\begin{itemize}
+\item \underline{exponential} $\rightarrow$ there is a dominating degree $<k>$ and most vertices have degree $k=<k>$
+\begin{itemize}
+\item low clustering
+\item nodes have similar degree
+\end{itemize}
+\item \underline{scale-free}: $\rightarrow$ p(k) is a power-law of k
+\begin{itemize}
+\item quite high clustering
+\item some nodes have low degree, others very high ($\rightarrow$ hubs)
+\end{itemize}
+\end{itemize}
+
+\vspace{5 cm}
+
+\underline{Note}: Real-world networks are generated by some mechanisms. Such mechanisms can be mathematically modelled, and some lead to exp. networks, others lead to scale-free networks.
+
+Often the process is reversed- one can observe a real-world network and try to find a mechanism which might have lead to it.\\
+
+\subsection{Stochastic Networks}
+
+The "measured" networks are often interpreted as being assembled in the past by \underline{random processes}.
+
+There are different options to model these processes:
+\begin{itemize}
+\item Keeping $|V| =n$ fixed and defining a probability that a link/edge between any two vertices/nodes is formed
+\item Keeping $|V|=n$ fixed, but starting from the \underline{complete} graph $K^{n}$ and deleteing edges with a certain probability
+\item letting the graph grow in the number of vertices (usually one vertex per time step), and then connecting/disconnecting edges from the newly generated vertex with probability p, where p can have:
+\begin{itemize}
+\item a \underline{uniform} distribution
+\item a distribution leading to \underline{preferential attachment}
+\end{itemize}
+\end{itemize}
+
+\section{Algebraic Graph Theory}
+
+Consider an undirected graph G, with adjacency matrix A(G). We are now interested in the \underline{spectral properties} of A(G).\\
+
+\underline{Definition A2.1}: The \underline{spectrum} of the graph /g is the set of the eigenvalues of the adjacency matrix A(G), together with their multiplicities.\\
+
+Now, lets order them: $\lambda_{0} \geq \lambda_{1} \geq ....\geq \lambda_{n-1}$, where s of them are distinct, i.e the multiplicities are $m(\lambda_{0},m(\lambda_{1},...,m(\lambda_{s-1}$.\\
+Then, we can write $$spec(G) = \binom{\lambda_{0}.......\lambda_{s-1}}{m(\lambda_{0})...m(\lambda_{s-1)}}$$
+
+\underline{Example}:\\
+Consider $K^{4}$. Adjacency matrix is: $$A(K^{4}) = \begin{pmatrix}
+  0 & 1 & 1 & 1 \\
+  1 & 0 & 1 & 1 \\
+  1 & 1 & 0 & 1 \\
+  1 & 1 & 1 & 0
+ \end{pmatrix}$$
+ Which has eigenvalues 3 (of multiplicity 1) and -1 (of multiplicity 3). Hence it has spectrum: $$spec(K^{4}) = \begin{pmatrix}
+ 3 & -1 \\
+ 1 & 3 \\
+ \end{pmatrix}$$
+ 
+\underline{Definition}: The \underline{characteristic polynomial} $\chi(G,\lambda)$ of a graph G is: $$\chi(G,\lambda) = \lambda^{n} + c_{1}\lambda^{n-1} + ... + c_{n}$$
+ 
+\underline{Theorem}:\begin{enumerate}
+\item $c_{1} = 0$
+\item $-c_{2}$ is the number of edges of G
+\item $-c_{3}$ is the number of triangles in G
+\end{enumerate}
+
+\underline{Proof}: For each $i \in \{1,2,...,n\}$, the number $-c_{i}$ is the sum of the principle minors of A which have i rows and columns.
+\begin{enumerate}
+\item Since the diagonal elements of A are all 0, we have necessarily that $c_{1} = 0$
+\item A principle minor with 2 rows and columns and which has non-zero entries must be of the form $$\begin{vmatrix}
+0 & 1 \\
+1 & 0 \\
+\end{vmatrix}$$
+There is one such minor for each pair of adjacent verties of G, and each has the value -1. Hence, $(-1)^{2}c_{2} = -|E|$
+\item There are essentially three possibilities: $$\begin{vmatrix}
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+0 & 0 & 0 \\
+\end{vmatrix} , \begin{vmatrix}
+0 & 1 & 1 \\
+1 & 0 & 0 \\
+1 & 0 & 0 \\
+\end{vmatrix} , \begin{vmatrix}
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 0 \\
+\end{vmatrix} $$
+and of these, only the last case contributes, with a value of 2. But this minor corresponds to $A(K^{3})$, giving the required description of $c_{3}$.
+\end{enumerate}
+\subsection{The uniform random network}
+We consider the \underline{Poisson random graph} with n vertices (n large): for every pair of vertices in the graph, we create an edge with probability $p \in [0,1]$ (this is 1 realisation). For p=1, we create the complete graph $K^{n}$. For p=0, we create the empty graph.\\
+
+We denote the \underline{family of graphs} created in this way by G(n,p).\\
+
+Let $C \subset G$ be defined as the \underline{largest component} of G (i.e the largest connected subgraph of G). Let now u be the average fraction of vertices in G which do \underline{not} belong to C. u depends (obviously) on p:\\
+For p=0 we have u=1, otherwise $u < 1$. For large n, u can be interpreted as the probability that a randomly chosen vertex in the graph does not belong to C.
+
+Note that $v_{i} \notin V(C) \Leftrightarrow  \not\exists $ a path between $v_{i}$ and any $v_{j}\in V(C)$. This means that either; for any $v_{j}\in V(G)$;
+\begin{enumerate}
+\item $v_{i} \notin V(C)$ is not connected directly to $v_{j}$\\
+\\or
+\item $v_{i}$ is connected to some $v_{j}$, but $v_{j}\notin V(C)$
+\end{enumerate}
+We now assign probabilities to statements (1) and (2):\\
+$$P(1)= 1-p$$
+$$P(2) = p\times u$$
+Besides $v_{i}$ there are n-1 other vertices. Therefore, we have in total $$ u= (1-p+pu)^{n-1} = [1-\frac{<k>}{n-1}(1-u)]^{n-1}$$
+
+Taking logarithms: $$ln(u) = (n-1)ln[1-\frac{<k>}{n-1}(1-u)]$$
+(n large) $$\approx -(n-1)\frac{<k>}{n-1}(1-u) = -<k>(1-u)$$
+$$ \Rightarrow u \approx e^{-<k>(1-u)}$$
+Let $c = |V(C)|$ be the size of the largest component. Then: $$ c=1-e^{-<k>c}$$
+and there is a critical value of p corresponding to a \underline{phase transition} of c (which turns out to be 1/2).
+
+\section{Continuum Structures}
+
+\underline{Examples}:
+\begin{itemize}
+\item Relativity $\rightarrow$ Topological problems
+\item Climate $\rightarrow$ lots of continuous structures
+\item Body Plans $\rightarrow$ Torus!
+\item Scaling laws $\rightarrow$  e.g. cities, body weight and physiology
+\item Fractals $\rightarrow$ e.g coast length, lung structure
+\end{itemize}
+
+What kind of mathematics do we need to model such structures?\begin{itemize}
+\item geometry
+\item topology/ algebraic topology
+\end{itemize}
+
+\chapter{Dynamics}
+
+\section{Stochastic Processes}
+Consider a random experiment having \underline{sample space} S. A \underline{random variable} X is a function that assigns a real value to each outcome of S: $$X:S \mapsto \mathbb{R}$$
+For $A \subset \mathbb{R}$, the \underline{probability} that X will assume a value in A is equal to the probability that the outcome of the experiment is contained in $X^{-1}(A)$. Therefore, we can write: $$P\{X \in A \} = P(X^{-1}(A))$$
+with $X^{-1}(A)$ being the \underline{event} consisting of all points $s \in S$ such that $X(s) \in A$.\\
+
+\underline{Definition}: A \underline{Stochastic Process} $X_{t} = \{X(t), t \in T \}$ is a collection of random variables for each t in the index set T. X(t) is a random variable, and any realisation of $X_{t}$ is called a sample path.\\
+
+\underline{Definition}: A stochastic process $N_{t} = \{N(t), t \in T \}$ is called a \underline{counting process} if N(t) represents the totl number of events that have occured up to time t.\\
+
+Hence a counting variable N(t) must satisfy:
+\begin{enumerate}
+\item $N(t) \geq 0$
+\item $N(t) \in \mathbb{N}$
+\item if $s<t$, then $N(s) \leq N(t)$
+\item for $s<t$, $N(t)- N(s)$ equals the number of events that occurred in the interval $(s,t]$ 
+\end{enumerate}
+\underline{Definition}: A counting process is said to possess \underline{independent increments} if the numbers of events that occur in disjoint time intervals are independent.\\
+
+\underline{Definition}: A counting process is said to possess \underline{stationary increments} if the distribution of the number of events that occur in any time interval only depends on the length of the time interval.\\
+
+\underline{Definition}: A \underline{distribution function} F of X is defined for any real number $x$ by: $$F(x) = P(X \leq x) = P\{ X in (-\infty,x] \}$$
+
+Equivalently, we can say for $s>0, t_{2}>t_{1}$ that $N(t_{2} + s) - N(t_{1} + s)$ in the interval $[t_{1} + s,t_{2} + s]$ must have the same distribution as the number of events $N(t_{2}) - N(t_{1})$ in the interval $[t_{1},t_{2}]$.
+
+\underline{Definition -version 1}: The counting process $N_{t} = \{N(t), t \geq 0 \}$ is said to be a \underline{Poisson process} with rate $\lambda > 0 $ if: \begin{enumerate}
+\item N(0) = 0
+\item $N_{t}$ has independent increments
+\item The number of events in any interval of length t is Poisson-distributed with mean $\lambda t$. That is, for all $s,t \geq 0$: $$P\{[N(t+s) - N(s)] = n \} = \frac{(\lambda t)^{n}}{n!}e^{-\lambda t}$$
+\end{enumerate}
+It follows from (2) that the Poisson process has stationary increments and that $\mathbb{E}[N(t)] = \lambda t$. (This is why $\lambda$ is called the rate of the process).\\
+
+\underline{Definition}: The function f is said to be $O(h), h>0$ if $\lim_{h\rightarrow 0 } \frac{f(h)}{h} = 0$\\
+
+Now we give a second definition of the Poisson process and show that they are equivalent:\\
+
+\underline{Definition -version 2}: The counting process $\{N(t), t\geq 0\}$ is said to be a \underline{Poisson process} with rate $\lambda > 0$ if: \begin{enumerate}
+\item N(0)=0
+\item The process has stationary and independent increments
+\item $P\{N(h) = 1 \} = \lambda h + O(h)$
+\item $P\{N(h) = 2 \} = O(h)$
+\end{enumerate}
+\underline{Theorem}: The two given definitions of a Poisson process are equivalent.\\
+
+\underline{Proof}: We first show that def2 $\rightarrow$ def1. Let $P_{n}(t) = P\{N(t) = n\}$ (the prob. of observing n events after t time).\\
+We derive an ODE for $P_{0}(t)$ by: \begin{align*}
+P_{0}(t + h) &=P\{N(t+h) = 0\} \\
+&= P\{N(t) = 0\}.P\{N(t+h) - N(t) = 0\}&\mbox{(independence)} \\
+&=P_{0}(t).P\{N(h)=0\} \\
+&=P_{0}(t).[1-P\{N(h)\geq 1\}] \\
+&=P_{0}(t).[1-\lambda h+O(h)] &\mbox{From defn version 2 parts (3),(4)} \\
+\end{align*}
+
+Therefore, $$\frac{P_{0}(t+h)-P_{0}(t)}{h} = -\lambda P_{0}+\frac{O(h)}{h}$$
+
+and letting $h \rightarrow 0$ yields $$P_{0}'(t) = -\lambda P_{0}(t) \Rightarrow \frac{P_{0}'(t)}{P_{0}(t)} = -\lambda$$
+whose solution is $$ln(P_{0}(t)) = -\lambda t +c \Rightarrow P_{0}(t)= e^{-\lambda t}$$
+
+Similarly, for $n \geq 1$: \begin{align*}
+P_{n}(t+h) &= P\{N(t+h) = n\} \\
+&= P\{N(t) = n, N(t+h)- N(t) = 0\}+P\{N(t) = n-1, N(t+h) - N(t) = 1\}+ P\{N(t) = n, N(t+h)-N(t) \geq 2\}\\
+\end{align*}
+by (Defn 2 part 4), the last term is O(h) and by (Defn 2 part 2) we can factorise the probabilities. Therefore, we have: \begin{align*}
+P_{n}(t+h) &=P_{n}(t)P_{0}(h)+P_{n-1}(t)P_{1}(h)+O(h) \\
+&=(1-\lambda h)P_{n}(t) +\lambda	hP_{n-1}(t) + O(h)\\
+\end{align*}
+Thus: $$\frac{P_{n}(t+h)-P_{n}(t)}{h} = -\lambda P_{n}(t)+\lambda P_{n-1}(t)+\frac{O(h)}{h}$$
+Letting $h \rightarrow 0$ yields: $$P_{n}'(t) = -\lambda P_{n}(t)+\lambda P_{n-1}(t)$$
+Rearrange as $$e^{\lambda t}[P_{n}'(t)+\lambda P_{n}(t)] = \lambda e^{\lambda t}P_{n-1}(t)$$
+Which is equivalent to $$\frac{d}{dt}[e^{\lambda t}P_{n}(t)] = \lambda e^{\lambda t}P_{n-1}(t) \mbox{      $(\star)$}$$
+Now, we know that for n=0 we have $P_{0}(t) = e^{-\lambda t}$, and this means that: $$\frac{d}{dt}[e^{\lambda t}P_{1}(t)] = \lambda e^{\lambda t}e^{-\lambda t} = \lambda$$
+$$\Rightarrow P_{1}(t) = (\lambda t + c)e^{-\lambda t}$$
+Using $P_{1}(t)  = 0 \Rightarrow P_{1}(t)= \lambda te^{-\lambda t}$. to show that $P_{n}(t) = e^{-\lambda t}\frac{(\lambda t)^{n}}{n!}$ we use induction.
+
+Assume this is true for n-1, then, using $(\star)$, we have: $$\frac{d}{dt}(e^{\lambda t}P_{n}(t)) = \lambda \frac{(\lambda t)^{n-1}}{(n-1)!}$$
+
+solution: $$e^{\lambda t}P_{n}(t) = \frac{(\lambda t)^{n}}{n!} +c$$
+Using $P_{n}(0) = P\{N(t=o)n\}=0 \Rightarrow P_{n}(t)= e^{-\lambda t}\frac{(\lambda t)^{n}}{n!}$. The proof that $(1) \rightarrow (2)$ is left as an exercise.
+
+\section{Stochastic processes defined on structures}
+
+\subsection{Large-scale proteomic evolution}
+
+We are interested in understanding the \underline{network topology} of the proteome of some algorithm. Experimentally:\\ Sequence analysis (\underline{genome}) $\rightarrow$ gene localisation $\rightarrow$ protein expression $\rightarrow$ protein interaction (\underline{proteome})
+
+\underline{Question}: Can we understand the experimentally observed proteomes using random graph theory?\\
+
+Let p(k) be the probability that a given protein interacts with k other proteins (degree).
+
+Experimentally, we observe that proteins are \underline{scale-free} networks. $\Rightarrow$ we expect a \underline{power-law} distribution: $$p(k) = (k_{0} + k)^{-\gamma}e^{-\frac{k}{k_{c}}}$$
+
+\vspace{5 cm}
+
+A simple \underline{evolutionary model}: \begin{enumerate}
+\item \begin{enumerate}
+\item Selection of a protein (uniformly at random)
+
+\vspace{5 cm}
+
+\item copy of the protein is made, with the same links as the original one
+
+\vspace{5cm}
+ 
+\end{enumerate}
+This process is discrete-time and is called \underline{duplication}
+\item After step (1), we have the following network:
+
+\vspace{5 cm}
+
+This step is called \underline{deletion}.
+
+\item Let's say that edge 1 was removed in the deletion step. In this step, called \underline{adding edges}, we create an edge from the new protein, uniformly with rate 2, excluding loops and a bond between the original protein and its copy.
+
+\vspace{5 cm}
+
+\end{enumerate}
+In this model, the time progression is determined by process (1). Process (2) is conditioned on process (1) and the same for process (3).\\
+
+Let
+
+\end{document}

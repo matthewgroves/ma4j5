@@ -1,0 +1,42 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\begin{document}
+
+
+\underline{Repetition}: We introduced chemical reactions of the type $P \rightarrow P'$, with P,P' chemical complexes.\\
+Then a chemical reaction can be written in standard form as: $$\alpha_{j1}S_{1}+....+ \alpha_{js}S_{s} \rightarrow \beta_{j1}S_{1}+....+\beta_{js}S_{s}$$
+Then N (script), the stoichiometric matrix was introduced, as the amount of particles produced by single reactions. Taking the \underline{mass-action principle} we can associate a dynamical system to any reaction network.\\
+
+We have: $$\frac{d}{dt}x = Nv(k,x)$$ $$v_{j} = v_{j}(k_{j},x) = k_{j}\prod_{i=1}^{s} x^{\alpha_{ji}}$$
+This dynamical system always has a polynomial RHS.\\
+
+\underline{Example}: MAPk\\
+$$E+S_{0} 	\Leftrightarrow ES_{0} \rightarrow E+S_{1} \Leftrightarrow ES_{1} \rightarrow E+S_{2}$$
+$$F+S_{2} \Leftrightarrow FS_{2} \rightarrow F+S_{1} \Leftrightarrow FS_{1} \rightarrow F+S_{0}$$
+The resulting equations are as follows: $$
+\frac{d}{dt}x_{1} = -k_{1}x_{1}x_{1} + (k_{3}-k_{2})x_{6} -k_{5}x_{1}x_{4}+(k_{6}-k_{4})x_{7}
+$$ The remainder is left as an exercise.\\
+
+\underline{Remark about Hypergraphs}: Consider again the complex species graph of the MAPk example:
+
+\vspace{5 cm}
+
+\underline{Interaction Graph}: The Interaction graph is ususally denoted by $\stackrel{\rightarrow}{G_{I}} = (V,\stackrel{\rightarrow}{E})$, with $V \equiv S_{1}$ and  $\stackrel{\rightarrow}{E}$ is defined by the Jacobian matrix of the vector field f of the equation $\frac{d}{dt} x = f(x)$, with $x \in \mathbb{R}_{+}^{s}$.\\
+
+First of all, we fix a state $x \in \mathbb{R}_{+}^{s}$ We weight $\stackrel{\rightarrow}{G_{I}}$ on the edges with labels either + , - or 0, depending on whether the Jacobian $(Jf(x))_{ij}$ is positive, negative or 0.\\
+
+\underline{Idea}: given state X, is there an active feedback of variable $x_{i}$ on variable $x_{j}$?\\
+
+For the MAPk example, we have:
+
+\vspace{5 cm}
+
+\underline{Exercise}: Verify this graph.\\ 
+
+We can see higher order feedback loops in this graph- cycles that are either all positive or all negative. There is for example a cycle of length 4: $F\rightarrow FS_{2} \rightarrow S_{1} \rightarrow FS_{1} \rightarrow F$.\\
+
+What can we do with this? For example, we have the \underline{Thomas-Soule Theorem}: (accent e)\\
+If a system has no positive cycles, in $\stackrel{\rightarrow}{G_{I}}(x)$ for any x, then it cannot exhibit multi-stationarity.
+
+\end{document}

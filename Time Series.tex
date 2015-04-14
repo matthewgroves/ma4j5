@@ -1,0 +1,37 @@
+\documentclass[11pt]{article}
+
+\begin{document}
+
+\section{Wasserstein distances and time series analysis}
+
+There is a dynamical system producing the time series. \\
+The dynamical system is reconstructed by repeated experiments and a\\
+ \underline{delay reconstruction}  (Takens). \\
+ 
+Given a time series $x={x_{1},x_{2},....,x_{N}}$, we define blocks $x_{[i]}=\{x_{i},x_{i+q},....,x_{i+(k-1)q}\}$ of k values sampled in discrete time intervals q, into a single point $x_{[i]}$ in a reconstruction space $\Omega = R^{k}$\\
+
+\underline{Interpretation:} The result of the embedding process is a discrete trajectory in phase space $\Omega = R^{k}$, and this trajectory is interpreted as a probability measure $\mu$ on (the Borel $\sigma$ - algebra of) $\Omega$, where $\mu_{[A]} = \frac{1}{N'} \sum\limits_{i=1}^{N'} \delta_{x[i]}[A], A\subseteq\Omega$ . \\
+
+This is a time-average of the characteristic function of the points in phase space visited, here $\delta_{x[i]}$ is the Dirac measure of the block $x[i]$ and $N' = N-(k-1)q$ is the length of the reconstructed time series. \\
+
+\underline{Wasserstein Distance}\\
+We define the Wasserstein distance W as a metric between two probability measures i.e: $W = W(\mu,\nu)$. \\
+(sidenote: Wasserstein distance was originally introduced as an optimal transportation measure, by Kantorovich)\\
+
+We introduce $L_{2}$ distance: $$d_{2}(x,y) = ||x-y||_{2} = \sum\limits_{i=1}^{k} |x_{1}- y_{1}|^{2})^{1/2}$$ (rotational invarient)\\
+
+The transport cost is defined as: $$C[\pi] = \int\limits_{\Omega \times \Omega} ||x-y||_{2}  d\pi[x,y]$$
+
+over the set $\Pi(\mu,\nu)$ of all probability measures on the product $\Omega x \Omega$ with prescribed marginals $\mu$ and $\nu$ such that
+$$\int\limits_{\Omega} d\pi (U,y) = \mu(U)$$, $$\int\limits_{\Omega} d\pi (x,V) = \nu(V)$$
+
+for all measurable sets $U,V \subset \Omega$ and all $\pi \in \Pi(\mu,\nu)$ \\
+
+Each measure $\pi \in \Pi(\mu,\nu)$ is interpreted as a \underline{transportation plan} that specifies how much probability mass $\pi(x,y)$ is transported from each location $x \in \Omega$ to each location $y \in \Omega$. \\
+
+The cost of an optimal transportation plan is called the \underline{Wasserstein distance} between the measures $\mu$ and $\nu$.
+
+It is defined by: $$W(\mu,\nu) = \inf\limits_{\pi\in\Pi(\mu,\nu)}\int\limits_{\Omega	\times \Omega} ||x-y||_{2} d\pi[x,y]$$
+
+
+\end{document}
